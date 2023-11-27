@@ -1,41 +1,48 @@
-import { NavLink } from 'react-router-dom';
+import DialogNames from './DialogNames';
+import Message from './Messages';
 import styles from './Dialogs.module.css';
-import React from 'react';
+import { sendMessageCreator, updateNewMessageBodyCreator } from '../redux/dialogs-reducer';
 
 
-const DialogItem = (props) => {
-    return (
-        <>
-            <div className={styles.item}>
-                <NavLink to={'/dialogs/' + props.id}>{props.name}</NavLink>
-            </div>
-        </>
-    )
-
-}
 
 
-const Message = (props) =>{
-    return(
-        <>
-    <div className={styles.messages}>
-    <div className={styles.message}>{props.message}</div>
-    </div>
-    </>
-)
-}
 
 export default function Dialogs(props) {
+
+
+const state = props.store.getState();
+
+    console.log(state,4535345354);
+    const dialogsElements = state.profilePage.dialogsData.map( dialog => <DialogNames name={dialog.name} id={dialog.id} />)
+    const messagesElements = state.messagesPage.messagesData.map(msg => <Message messages={msg.message}/>)
+
+    const newMessageBody = props.store.getState().messagesPage.newMessageBody;
+    
+
+    const onSendMessageClick = () =>{
+        props.store.dispatch(sendMessageCreator());
+        
+    }
+
+    const onSendMessageChange = (e) =>{
+        const body = e.target.value;
+        props.store.dispatch(updateNewMessageBodyCreator(body));
+        console.log(body,'body')
+
+    }
+
     return (
         <div className={styles.dialogs}>
             <div className={styles.dialogs_items}>
-                <DialogItem name='Ира' id='1' />
-                <DialogItem name='Настя' id='2' />
-                <DialogItem name='Оля' id='3' />
+
+                {dialogsElements}
             </div>
-            <Message message='Hi'/>
-            <Message message='How is your it-kamasutra?'/>
-            <Message message='Yo'/>
+            
+            <div>{messagesElements}</div>
+            <div>
+               <div> <textarea onChange={onSendMessageChange} value={newMessageBody} autoFocus className={styles.textarea} placeholder='Enter your message' ></textarea> </div> 
+               <div><button onClick={onSendMessageClick}>Send</button></div>
+            </div>
         </div>
     );
 }

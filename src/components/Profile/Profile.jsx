@@ -1,12 +1,22 @@
-import styles from './Profile.module.scss';
+// import styles from './Profile.module.scss';
 import MyPosts from '../MyPosts/MyPosts';
-import Dialogs from '../../Dialogs/Dialogs';
 import Content from '../Content/Content';
+import Post from '../MyPosts/Post';
 
-export default function Profile() {
+
+
+
+export default function Profile(props) {
+
+
   return (
     <>
-      <MyPosts />
+      <MyPosts  postsData={props.postsData} dispatch={props.dispatch} newPostText={props.newPostText}  />
+      {/* {props.postsData.map(p =>
+            <Post
+              likesCount={p.likesCount}
+              message={p.message}
+            />)} */}
       <Content />
     </>
   );
