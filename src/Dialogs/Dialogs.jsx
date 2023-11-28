@@ -12,11 +12,10 @@ export default function Dialogs(props) {
 
 const state = props.store.getState();
 
-    console.log(state,4535345354);
     const dialogsElements = state.profilePage.dialogsData.map( dialog => <DialogNames name={dialog.name} id={dialog.id} />)
     const messagesElements = state.messagesPage.messagesData.map(msg => <Message messages={msg.message}/>)
 
-    const newMessageBody = props.store.getState().messagesPage.newMessageBody;
+    const newMessageBody = state.messagesPage.newMessageBody;
     
 
     const onSendMessageClick = () =>{
@@ -27,7 +26,7 @@ const state = props.store.getState();
     const onSendMessageChange = (e) =>{
         const body = e.target.value;
         props.store.dispatch(updateNewMessageBodyCreator(body));
-        console.log(body,'body')
+        // console.log(body,'body')
 
     }
 

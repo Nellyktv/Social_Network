@@ -4,7 +4,7 @@ import styles from './Post.module.scss';
 
 export default function Post(props) {
 
-// console.log(props.message)
+
 
     return (
 

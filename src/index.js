@@ -1,6 +1,6 @@
 
 import './index.css';
-import  store from './redux/store';
+import  store from './redux/redux-store';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
@@ -13,7 +13,7 @@ export const rerenderEntireTree = (state) => {
     const root = ReactDOM.createRoot(document.getElementById('root'));
   root.render(
     <React.StrictMode>
-      <App state={state} dispatch={store.dispatch.bind(store)} store={store}/>
+      <App state={state} store={store}/>
     </React.StrictMode>
   );
   
@@ -21,8 +21,11 @@ export const rerenderEntireTree = (state) => {
 
 
 rerenderEntireTree(store.getState());
+const state = store.getState();
 
-store.subscribe(rerenderEntireTree);
+store.subscribe(() => {
+  rerenderEntireTree(state)
+});
 
 
 

@@ -4,45 +4,20 @@ import Post from './Post';
 import { addPostActionCreator, updateNewPostTextActionCreator } from '../../redux/profile-reducer';
 
 
-
-
-
-
-
 export default function MyPosts(props) {
-console.log(props,99999999);
+  let newPostText = props.store.getState().profilePage.newPostText;
 
-
-  let newPostElement = React.createRef();
-
-  // const addAllForPost = () =>{
-  //   addPostVal();
-  //   props.addPost();
-
-  // }
 
   const addPost = () => {
+    props.store.dispatch(addPostActionCreator());
     
-props.dispatch(addPostActionCreator);
   }
 
-
-// const addPostActionCreator = () => {
-
-//   return {
-//     type: 'ADD-POST'
-//   }
-// }
-
-
-  const onPostChange = () => {   
-    let text = newPostElement.current.value;
-    // // props.updateNewPost(text);
-    let action = updateNewPostTextActionCreator(text);
-    props.dispatch(action);
+  const onPostChange = (e) => {
+    let text = e.target.value;
+    props.store.dispatch(updateNewPostTextActionCreator(text));
+    console.log(text,11111111111111111111)
   }
-
- 
 
   return (
     <>
@@ -50,20 +25,15 @@ props.dispatch(addPostActionCreator);
         <div>ava+description</div>
         <div>My posts</div>
         <div>
-          <textarea ref={newPostElement} autoFocus onChange={onPostChange} ></textarea>
-          <button  onClick={addPost}>Add post</button>
+          <textarea autoFocus value={newPostText} onChange={onPostChange} ></textarea>
+          <button onClick={addPost}>Add post</button>
           <button>Remove</button>
-         {props.postsData.map(p =>
+          {props.store.getState().profilePage.postsData.map(p =>
             <Post
-            key={p.message}
               likesCount={p.likesCount}
               message={p.message}
             />)}
-
         </div>
-        <div>
-        </div>
-
       </div>
     </>
   );

@@ -14,7 +14,6 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 function App(props) {
 
-console.log(props.state.messagesPage.messagesData,'wwwwwwwww');
   return (
     <BrowserRouter>
     <div className='App'>
@@ -22,7 +21,7 @@ console.log(props.state.messagesPage.messagesData,'wwwwwwwww');
      <NavBar/>
       <Routes>
           <Route path='/dialogs'  element={<Dialogs store={props.store} />}/>
-          <Route path='/profile' element={<Profile dispatch={props.dispatch} newPostText={props.state.profilePage.newPostText} postsData={props.state.profilePage.postsData}  />}/> 
+          <Route path='/profile' element={<Profile  store={props.store}  />}/> 
      </Routes>
      <div className='app_wrapper-content'>
      </div>
