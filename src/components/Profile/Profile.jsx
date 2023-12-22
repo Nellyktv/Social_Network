@@ -1,16 +1,15 @@
 // import styles from './Profile.module.scss';
-import MyPosts from '../MyPosts/MyPosts';
 import Content from '../Content/Content';
-import Post from '../MyPosts/Post';
+import MyPostsContainer from '../MyPosts/MyPostsContainer';
 
 
 
 
-export default function Profile(props) {
+export default function Profile() {
 
   return (
     <>
-      <MyPosts store={props.store} />
+      <MyPostsContainer />
       <Content />
     </>
   );
